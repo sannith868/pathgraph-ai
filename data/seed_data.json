@@ -1,0 +1,172 @@
+{
+  "skills": [
+    "Python",
+    "Java",
+    "SQL",
+    "JavaScript",
+    "React",
+    "Django",
+    "Flask",
+    "Machine Learning",
+    "Deep Learning",
+    "TensorFlow",
+    "PyTorch",
+    "OpenCV",
+    "YOLO",
+    "Computer Vision",
+    "LLMs",
+    "RAG",
+    "LangChain",
+    "Vector Databases",
+    "AWS",
+    "Docker",
+    "Git",
+    "REST APIs",
+    "Data Structures"
+  ],
+
+  "career_domains": [
+    "Artificial Intelligence",
+    "Software Engineering",
+    "Data Science",
+    "Computer Vision",
+    "Generative AI"
+  ],
+
+  "job_roles": [
+    {
+      "name": "Computer Vision Engineer",
+      "domain": "Computer Vision",
+      "required_skills": [
+        "Python",
+        "Machine Learning",
+        "Deep Learning",
+        "TensorFlow",
+        "PyTorch",
+        "OpenCV",
+        "YOLO",
+        "Git"
+      ]
+    },
+    {
+      "name": "Machine Learning Engineer",
+      "domain": "Artificial Intelligence",
+      "required_skills": [
+        "Python",
+        "Machine Learning",
+        "Deep Learning",
+        "TensorFlow",
+        "PyTorch",
+        "SQL",
+        "Docker",
+        "Git"
+      ]
+    },
+    {
+      "name": "GenAI Engineer",
+      "domain": "Generative AI",
+      "required_skills": [
+        "Python",
+        "LLMs",
+        "RAG",
+        "LangChain",
+        "Vector Databases",
+        "REST APIs",
+        "AWS",
+        "Git"
+      ]
+    },
+    {
+      "name": "Backend Developer",
+      "domain": "Software Engineering",
+      "required_skills": [
+        "Python",
+        "Django",
+        "Flask",
+        "SQL",
+        "REST APIs",
+        "Docker",
+        "Git"
+      ]
+    },
+    {
+      "name": "Full-Stack Developer",
+      "domain": "Software Engineering",
+      "required_skills": [
+        "JavaScript",
+        "React",
+        "Python",
+        "Django",
+        "REST APIs",
+        "SQL",
+        "Git"
+      ]
+    },
+    {
+      "name": "Data Scientist",
+      "domain": "Data Science",
+      "required_skills": [
+        "Python",
+        "SQL",
+        "Machine Learning",
+        "Deep Learning",
+        "TensorFlow",
+        "Git"
+      ]
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "Real-Time Object Detection System",
+      "skills": [
+        "Python",
+        "YOLO",
+        "OpenCV",
+        "Deep Learning"
+      ]
+    },
+    {
+      "name": "RAG Knowledge Assistant",
+      "skills": [
+        "Python",
+        "LLMs",
+        "RAG",
+        "LangChain",
+        "Vector Databases"
+      ]
+    },
+    {
+      "name": "AI Career Recommendation Platform",
+      "skills": [
+        "Python",
+        "Machine Learning",
+        "REST APIs"
+      ]
+    },
+    {
+      "name": "Full-Stack Analytics Dashboard",
+      "skills": [
+        "JavaScript",
+        "React",
+        "Python",
+        "Django",
+        "SQL"
+      ]
+    }
+  ],
+
+  "skill_prerequisites": [
+    ["Python", "Machine Learning"],
+    ["Machine Learning", "Deep Learning"],
+    ["Deep Learning", "Computer Vision"],
+    ["Deep Learning", "TensorFlow"],
+    ["Deep Learning", "PyTorch"],
+    ["Python", "Django"],
+    ["Python", "Flask"],
+    ["Python", "LLMs"],
+    ["LLMs", "RAG"],
+    ["RAG", "LangChain"],
+    ["RAG", "Vector Databases"]
+  ]
+}
