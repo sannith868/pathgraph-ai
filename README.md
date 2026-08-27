@@ -2,9 +2,18 @@
 
 ### Graph-Powered Career Intelligence Platform
 
-PathGraph AI is an interactive career intelligence application built with **Python, Streamlit, Cypher, and CognoDB**.
+**PathGraph AI** is an interactive career intelligence platform built with **Python, Streamlit, Cypher, and CognoDB**.
 
-Instead of treating skills, careers, projects, and learning paths as isolated records, PathGraph AI models them as a connected knowledge graph. Users can analyze career compatibility, discover skill gaps, explore multi-hop learning routes, visualize the graph, and identify portfolio projects based on their existing skills.
+Instead of treating skills, careers, projects, and learning paths as isolated records, PathGraph AI models them as a connected **career knowledge graph**.
+
+The platform helps users:
+
+- 🎯 Discover career-role matches
+- 🧩 Identify missing skills
+- 📊 Calculate career readiness
+- 🗺️ Explore multi-hop learning paths
+- 🌐 Visualize the underlying knowledge graph
+- 💼 Discover portfolio projects based on their skills
 
 ---
 
@@ -16,47 +25,113 @@ Instead of treating skills, careers, projects, and learning paths as isolated re
 
 ## 🎥 Demo Video
 
-> Screen-recording URL will be added after recording.
+> Demo video URL will be added after recording.
 
 ---
 
-## ✨ Key Features
+# ✨ Core Features
 
-### 🎯 Career Match Intelligence
+## 🎯 1. Career Match Intelligence
 
-Users select their current technical skills and PathGraph AI compares them with skills required by career roles stored in CognoDB.
+Users select their existing technical skills and PathGraph AI compares them against the skills required by career roles stored in the CognoDB knowledge graph.
 
-The system returns:
+The system generates:
 
 - Career match percentage
 - Matched skills
 - Missing skills
-- Total required skills
+- Number of required skills
 - Ranked career recommendations
-- Recommended next skill to learn
+
+Example input:
+
+```text
+Python
+Machine Learning
+Deep Learning
+OpenCV
+TensorFlow
+```
+
+Example career analysis:
+
+```text
+Data Scientist               67%
+Computer Vision Engineer     63%
+Machine Learning Engineer    50%
+Backend Developer            14%
+Full-Stack Developer         14%
+GenAI Engineer               13%
+```
+
+The percentages represent **skill-overlap scores within the seeded knowledge graph**, not employment or hiring probabilities.
 
 ---
 
-### 🧩 Skill Gap Intelligence
+## 🧩 2. Skill Gap Intelligence
 
-Users can select a target career such as:
+Users can choose a target career role and compare its requirements with their current skill set.
 
-- Computer Vision Engineer
-- Machine Learning Engineer
-- GenAI Engineer
-- Data Scientist
-- Backend Developer
-- Full-Stack Developer
+Supported career roles include:
 
-PathGraph AI identifies the difference between the user's current skills and the skills required for the selected career.
+```text
+Computer Vision Engineer
+Machine Learning Engineer
+Data Scientist
+GenAI Engineer
+Backend Developer
+Full-Stack Developer
+```
 
-The application calculates a **Career Readiness Score** and highlights both existing strengths and missing capabilities.
+For each target career, PathGraph AI identifies:
+
+```text
+Required Skills
+      ↓
+Matched Skills
+      ↓
+Missing Skills
+      ↓
+Career Readiness
+```
+
+Example:
+
+```text
+Target Role:
+Computer Vision Engineer
+
+Matched:
+Python
+Machine Learning
+Deep Learning
+TensorFlow
+OpenCV
+
+Missing:
+PyTorch
+YOLO
+Git
+
+Career Readiness:
+62%
+```
+
+This gives users an actionable view of what they already know and what they should learn next.
 
 ---
 
-### 🗺️ Multi-Hop Career Route Explorer
+## 🗺️ 3. Multi-Hop Career Route Explorer
 
-PathGraph AI uses graph traversal to discover learning paths between skills.
+Career development rarely happens in a single step.
+
+PathGraph AI models skill dependencies using:
+
+```text
+(:Skill)-[:PREREQUISITE_OF]->(:Skill)
+```
+
+This allows the application to discover multi-hop learning routes.
 
 Example:
 
@@ -70,105 +145,124 @@ Deep Learning
 Computer Vision
 ```
 
-This is represented using:
+Another possible route is:
 
 ```text
-(:Skill)-[:PREREQUISITE_OF]->(:Skill)
+Python
+   ↓
+LLMs
+   ↓
+RAG
+   ↓
+LangChain
 ```
 
-The application supports multi-hop traversal, allowing it to discover indirect learning relationships rather than only direct connections.
+Instead of hard-coding these paths in the UI, the application traverses the graph to discover connected learning routes.
 
 ---
 
-### 🌐 Interactive Graph Explorer
+## 🌐 4. Interactive Graph Explorer
 
-The application includes an interactive visualization of the live CognoDB graph.
+PathGraph AI includes an interactive visualization of the career knowledge graph.
+
+The graph explorer allows users to visually inspect connections among:
+
+- Skills
+- Job Roles
+- Projects
+- Career Domains
 
 Users can:
 
 - Drag nodes
-- Zoom into the graph
-- Explore relationships
-- Inspect skills
-- Inspect career roles
-- Inspect projects
-- Inspect career domains
+- Zoom and pan
+- Explore connected entities
+- Inspect graph structure
+- Understand relationships visually
 
-The visualization is generated using **PyVis** from data retrieved directly from CognoDB.
+The visualization is generated using **PyVis** from data retrieved from CognoDB.
 
 ---
 
-### 💼 Project Finder
+## 💼 5. Project Finder
 
-PathGraph AI connects technical skills to portfolio projects.
+Knowing what to learn is useful, but applying those skills is equally important.
 
-The system traverses:
+PathGraph AI connects portfolio projects with the technologies they use:
 
 ```text
 (Project)-[:USES]->(Skill)
 ```
 
-and ranks projects according to the user's existing skill set.
+The Project Finder compares a user's current skills against project requirements and can surface:
 
-For every recommendation, the application shows:
+- Matching projects
+- Existing relevant skills
+- Additional skills to learn
+- Skill coverage
 
-- Project match percentage
-- Skills already available
-- Skills that can be learned
-- Total skill coverage
-
-This turns career analysis into an actionable portfolio-building recommendation.
+This transforms career analysis into actionable portfolio-building guidance.
 
 ---
 
-## 🧠 Why a Graph Database?
+# 🧠 Why a Graph Database?
 
-Career development is naturally a connected problem.
+Career development is fundamentally a relationship-driven problem.
 
-A single skill may:
+A technical skill can simultaneously:
 
-- Be required by multiple career roles
-- Be used by multiple projects
-- Depend on another skill
-- Lead toward several different career paths
+- Be required by several jobs
+- Be used in multiple projects
+- Depend on another technical skill
+- Connect to different career domains
 
 For example:
 
 ```text
 Python
-   ↓
-Machine Learning
-   ↓
-Deep Learning
-   ↓
-Computer Vision
+  │
+  ├── Machine Learning
+  │       │
+  │       └── Deep Learning
+  │                │
+  │                └── Computer Vision
+  │
+  ├── Django
+  │
+  ├── Flask
+  │
+  └── LLMs
+          │
+          └── RAG
+               │
+               └── LangChain
 ```
 
-In a traditional relational database, discovering variable-length learning paths can require multiple joins and additional recursive logic.
+A graph database represents these connections directly as nodes and relationships.
 
-A graph database represents these relationships directly.
+Using **CognoDB + Cypher**, PathGraph AI can naturally answer questions such as:
 
-With CognoDB and Cypher, PathGraph AI can express questions such as:
+```text
+Which careers best match my skills?
 
-> Which careers best match my skills?
+Which skills am I missing for a target career?
 
-> Which skills am I missing for a particular career?
+What can I learn after Python?
 
-> What can I learn after Python?
+What multi-hop learning path leads toward Computer Vision?
 
-> What multi-hop path leads from Python to Computer Vision?
+Which projects use skills I already know?
+```
 
-> Which projects can I build using my existing skills?
-
-These questions map naturally to graph traversal.
+These are graph traversal problems, making a graph database a natural fit for the application.
 
 ---
 
 # 🕸️ Graph Data Model
 
-PathGraph AI uses four primary node types:
+PathGraph AI currently uses four primary node types.
 
-### Skill
+## 🔵 Skill
 
 Represents a technical capability.
 
@@ -176,18 +270,24 @@ Examples:
 
 ```text
 Python
+SQL
 Machine Learning
 Deep Learning
 TensorFlow
 PyTorch
 OpenCV
 YOLO
+LLMs
 RAG
 LangChain
 Docker
+Git
+REST APIs
 ```
 
-### JobRole
+---
+
+## 🟣 JobRole
 
 Represents a career target.
 
@@ -196,23 +296,31 @@ Examples:
 ```text
 Computer Vision Engineer
 Machine Learning Engineer
-GenAI Engineer
 Data Scientist
+GenAI Engineer
 Backend Developer
 Full-Stack Developer
 ```
 
-### Project
+---
 
-Represents a portfolio project that uses a set of technical skills.
+## 🟢 Project
 
-### CareerDomain
+Represents a portfolio project associated with technical skills.
+
+Projects are connected to the skills they use.
+
+---
+
+## 🟠 CareerDomain
 
 Represents a broader career category associated with job roles.
 
 ---
 
-## Relationships
+# 🔗 Graph Relationships
+
+PathGraph AI uses typed relationships to represent career knowledge.
 
 ```text
 (JobRole)-[:REQUIRES]->(Skill)
@@ -224,28 +332,43 @@ Represents a broader career category associated with job roles.
 (JobRole)-[:BELONGS_TO]->(CareerDomain)
 ```
 
-These relationships allow PathGraph AI to perform direct and multi-hop graph traversal.
+### Relationship meanings
+
+| Relationship | Meaning |
+|---|---|
+| `REQUIRES` | Skills required for a career role |
+| `USES` | Skills used by a portfolio project |
+| `PREREQUISITE_OF` | Learning dependency between skills |
+| `BELONGS_TO` | Career-domain classification |
 
 ---
 
-## 📊 Data Model Diagram
+# 📊 Graph Data Model Diagram
 
 ![PathGraph AI Data Model](assets/pathgraph_data_model.png)
 
+The diagram represents the core entities and typed relationships used by PathGraph AI.
+
 ---
 
-# 🔍 Example Cypher Queries
+# 🔍 Cypher Query Examples
 
-## Career Requirements
+PathGraph AI uses Cypher for graph retrieval and traversal.
+
+## 1. Career Requirements
 
 ```cypher
 MATCH (role:JobRole)-[:REQUIRES]->(skill:Skill)
-RETURN role.name, collect(skill.name);
+RETURN
+    role.name AS role,
+    collect(skill.name) AS required_skills;
 ```
+
+This retrieves the skills associated with each career role.
 
 ---
 
-## Skill Gap Analysis
+## 2. Skill Gap Analysis
 
 ```cypher
 MATCH (role:JobRole {name: $role_name})-[:REQUIRES]->(skill:Skill)
@@ -264,11 +387,11 @@ RETURN
     ] AS missing_skills;
 ```
 
-User-provided values are passed as query parameters rather than concatenated into Cypher strings.
+Values supplied by users are passed as parameters instead of being directly concatenated into Cypher queries.
 
 ---
 
-## Multi-Hop Learning Path
+## 3. Multi-Hop Learning Route
 
 ```cypher
 MATCH path =
@@ -278,11 +401,13 @@ MATCH path =
 
 RETURN
     [node IN nodes(path) | node.name] AS route,
-    target.name,
-    length(path);
+    target.name AS target_skill,
+    length(path) AS hops;
 ```
 
-Example traversal:
+This query enables variable-length graph traversal.
+
+Example result:
 
 ```text
 Python
@@ -293,7 +418,7 @@ Python
 
 ---
 
-## Project Discovery
+## 4. Project Discovery
 
 ```cypher
 MATCH (project:Project)-[:USES]->(skill:Skill)
@@ -303,43 +428,104 @@ WITH
     collect(skill.name) AS project_skills
 
 RETURN
-    project.name,
+    project.name AS project,
     project_skills;
+```
+
+The returned project-skill relationships are used by the application to calculate project relevance.
+
+---
+
+## 5. Graph Explorer
+
+The Graph Explorer retrieves connected nodes and relationships from CognoDB and transforms them into a visualization-ready structure.
+
+Conceptually:
+
+```text
+CognoDB
+   ↓
+Cypher Query
+   ↓
+Nodes + Relationships
+   ↓
+graph_service.py
+   ↓
+PyVis
+   ↓
+Interactive Graph
 ```
 
 ---
 
-# 🏗️ Architecture
+# 🏗️ Application Architecture
+
+PathGraph AI follows a modular architecture that separates presentation, business logic, graph queries, and database connectivity.
 
 ```text
-┌─────────────────────────────┐
-│       Streamlit UI          │
-│          app.py             │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│       Service Layer         │
-│                             │
-│ career_service.py           │
-│ graph_service.py            │
-│ skill_service.py            │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│      Cypher Query Layer     │
-│     queries/queries.py      │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│          CognoDB            │
-│      Knowledge Graph        │
-└─────────────────────────────┘
+┌──────────────────────────────────┐
+│          Streamlit UI            │
+│             app.py               │
+└────────────────┬─────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────┐
+│          Service Layer           │
+│                                  │
+│  career_service.py               │
+│  graph_service.py                │
+│  skill_service.py                │
+└────────────────┬─────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────┐
+│        Cypher Query Layer        │
+│       queries/queries.py         │
+└────────────────┬─────────────────┘
+                 │
+                 ▼
+┌──────────────────────────────────┐
+│             CognoDB              │
+│      Career Knowledge Graph      │
+└──────────────────────────────────┘
 ```
 
-This separation keeps UI logic, business logic, graph queries, and database configuration modular and maintainable.
+### UI Layer
+
+`app.py`
+
+Responsible for:
+
+- Navigation
+- User inputs
+- Dashboard components
+- Career analysis presentation
+- Graph visualization
+- Project recommendations
+
+### Service Layer
+
+```text
+services/
+```
+
+Contains the application's graph-based business logic.
+
+### Query Layer
+
+```text
+queries/queries.py
+```
+
+Contains reusable Cypher queries.
+
+### Database Layer
+
+```text
+config/database.py
+```
+
+Handles CognoDB connectivity using environment variables.
 
 ---
 
@@ -350,6 +536,7 @@ pathgraph-ai/
 │
 ├── app.py
 ├── requirements.txt
+├── README.md
 ├── .env.example
 ├── .gitignore
 │
@@ -381,30 +568,30 @@ pathgraph-ai/
 
 # 🛠️ Technology Stack
 
-| Technology | Purpose |
+| Technology | Usage |
 |---|---|
-| Python | Core application logic |
-| Streamlit | Interactive web interface |
+| Python | Application and graph-processing logic |
+| Streamlit | Interactive web UI |
 | CognoDB | Managed graph database |
-| Cypher | Graph querying and traversal |
-| Neo4j Python Driver | Bolt database connectivity |
+| Cypher | Graph queries and traversal |
+| Neo4j Python Driver | Bolt-compatible database connectivity |
 | PyVis | Interactive graph visualization |
-| python-dotenv | Environment configuration |
+| python-dotenv | Local environment configuration |
 
 ---
 
-# ⚙️ Local Setup
+# ⚙️ Local Installation
 
-## 1. Clone the repository
+## 1. Clone the Repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+git clone https://github.com/sannith868/pathgraph-ai.git
 cd pathgraph-ai
 ```
 
 ---
 
-## 2. Create a virtual environment
+## 2. Create a Virtual Environment
 
 ### Windows
 
@@ -422,7 +609,7 @@ source .venv/bin/activate
 
 ---
 
-## 3. Install dependencies
+## 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -430,23 +617,47 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Configure environment variables
+# 🔐 CognoDB Configuration
 
-Create a `.env` file based on `.env.example`.
+Create a free CognoDB instance and obtain the database connection credentials.
 
-Example:
+Copy:
+
+```text
+.env.example
+```
+
+to:
+
+```text
+.env
+```
+
+Then configure:
 
 ```env
 COGNODB_URI=your_cognodb_connection_uri
-COGNODB_USERNAME=your_username
-COGNODB_PASSWORD=your_password
+COGNODB_USER=cognodb
+COGNODB_PASSWORD=your_cognodb_password
 ```
 
-> Never commit your real `.env` file or database password to GitHub.
+Example structure:
+
+```env
+COGNODB_URI=bolt+s://your-instance-host:7687
+COGNODB_USER=cognodb
+COGNODB_PASSWORD=replace_with_your_password
+```
+
+Do **not** commit your real `.env` file.
 
 ---
 
-## 5. Seed the graph
+# 🌱 Seed the Knowledge Graph
+
+PathGraph AI includes deterministic seed data so the graph can be recreated.
+
+Run:
 
 ```bash
 python -m scripts.seed_database
@@ -455,26 +666,48 @@ python -m scripts.seed_database
 Expected output:
 
 ```text
-PathGraph AI seed data loaded successfully!
+✅ PathGraph AI seed data loaded successfully!
 ```
+
+The script creates the application's graph entities and relationships in CognoDB.
 
 ---
 
-## 6. Run the application
+# ▶️ Run PathGraph AI
+
+Start the Streamlit application:
 
 ```bash
 streamlit run app.py
 ```
 
-Then open the local Streamlit URL displayed in the terminal.
+Streamlit will provide a local URL, typically:
+
+```text
+http://localhost:8501
+```
+
+Open it in your browser to use PathGraph AI.
 
 ---
 
-# 🔐 Security
+# 🔐 Security Practices
 
-Database credentials are loaded from environment variables rather than being hard-coded into the source code.
+PathGraph AI avoids storing database credentials directly in source code.
 
-User-provided values are supplied to Cypher queries through parameters such as:
+Credentials are loaded from environment variables:
+
+```text
+COGNODB_URI
+COGNODB_USER
+COGNODB_PASSWORD
+```
+
+The real `.env` file is excluded from version control.
+
+User-provided values are supplied to Cypher using query parameters where applicable rather than being inserted directly into query strings.
+
+Example pattern:
 
 ```python
 session.run(
@@ -484,44 +717,42 @@ session.run(
 )
 ```
 
-This avoids directly constructing Cypher queries from user input.
-
-The `.env` file is excluded from version control through `.gitignore`.
+This keeps query construction separate from user-provided values.
 
 ---
 
-# 🌱 Seed Data
+# 🌱 Reproducibility
 
-The repository includes deterministic seed data and a seeding script so the graph can be recreated consistently.
+The repository contains:
 
-Run:
-
-```bash
-python -m scripts.seed_database
+```text
+data/seed_data.json
+scripts/seed_database.py
+.env.example
+requirements.txt
 ```
 
-The seeded knowledge graph contains skills, career roles, projects, career domains, and the relationships between them.
+Together, these allow another developer to:
+
+```text
+Clone repository
+      ↓
+Install dependencies
+      ↓
+Configure CognoDB
+      ↓
+Seed graph
+      ↓
+Run Streamlit
+```
+
+This makes the project reproducible without sharing private database credentials.
 
 ---
 
-# 📸 Application Screenshots
+# 🧪 Example Career Analysis
 
-Screenshots will be added before final submission.
-
-Recommended screenshots:
-
-1. PathGraph AI dashboard
-2. Career Match results
-3. Skill Gap analysis
-4. Multi-hop Career Route Explorer
-5. Interactive Graph Explorer
-6. Project Finder results
-
----
-
-# 🎯 Example User Journey
-
-A user may enter:
+Input:
 
 ```text
 Python
@@ -531,39 +762,148 @@ OpenCV
 TensorFlow
 ```
 
-PathGraph AI can then:
+PathGraph AI can produce ranked career matches such as:
 
-1. Rank suitable career roles.
-2. Calculate career match percentages.
-3. Identify missing skills.
-4. Analyze readiness for a selected career.
-5. Traverse multi-hop learning routes.
-6. Recommend relevant portfolio projects.
-7. Visualize the connected career knowledge graph.
+```text
+Data Scientist
+67%
+
+Computer Vision Engineer
+63%
+
+Machine Learning Engineer
+50%
+```
+
+For Computer Vision Engineer:
+
+```text
+Required Skills: 8
+
+Matched Skills:
+✓ Python
+✓ Machine Learning
+✓ Deep Learning
+✓ TensorFlow
+✓ OpenCV
+
+Missing Skills:
+○ PyTorch
+○ YOLO
+○ Git
+
+Career Readiness:
+62%
+```
+
+The application can then use the graph to identify learning routes toward missing or related skills.
+
+---
+
+# 📸 Application Screenshots
+
+Screenshots will be added before final submission.
+
+Recommended screenshots:
+
+```text
+1. PathGraph AI Dashboard
+2. Career Match Intelligence
+3. Skill Gap Analysis
+4. Career Route Explorer
+5. Interactive Graph Explorer
+6. Project Finder
+```
+
+---
+
+# 🎯 Example User Journey
+
+A user selects:
+
+```text
+Python
+Machine Learning
+Deep Learning
+OpenCV
+TensorFlow
+```
+
+PathGraph AI then:
+
+```text
+User Skills
+     ↓
+Career Match
+     ↓
+Skill Gap Analysis
+     ↓
+Career Readiness
+     ↓
+Multi-Hop Learning Routes
+     ↓
+Project Recommendations
+     ↓
+Interactive Graph Exploration
+```
+
+This provides a connected career-development workflow rather than a collection of isolated recommendations.
+
+---
+
+# 💡 Design Philosophy
+
+PathGraph AI was designed around one central idea:
+
+> Career development is not a list — it is a graph.
+
+Skills connect to other skills.
+
+Skills connect to careers.
+
+Projects connect to skills.
+
+Careers connect to broader domains.
+
+By modeling these relationships explicitly, PathGraph AI can perform graph traversal and reasoning that would be less natural with isolated tabular records.
 
 ---
 
 # 🚧 Current Scope
 
-PathGraph AI currently uses a curated career knowledge graph intended to demonstrate graph modeling, traversal, parameterized Cypher queries, career reasoning, and interactive visualization.
+PathGraph AI currently uses a curated seed dataset designed to demonstrate:
 
-The recommendation percentages represent **skill-overlap scores within the seeded graph**, not employment probabilities or predictions of hiring outcomes.
+- Graph data modeling
+- Typed relationships
+- Cypher queries
+- Multi-hop traversal
+- Skill-gap analysis
+- Career matching
+- Project discovery
+- Interactive graph visualization
+
+Career-match percentages are based on skill overlap within the seeded knowledge graph.
+
+They should not be interpreted as hiring probabilities, employment predictions, or guarantees.
 
 ---
 
 # 🔮 Future Improvements
 
-Potential extensions include:
+Potential future extensions include:
 
-- Resume-based automatic skill extraction
-- LLM-assisted career explanations
-- Personalized learning roadmaps
-- Larger career and skill knowledge graphs
-- Job-market data integration
-- Course recommendations
-- Graph embeddings
-- Semantic skill matching
-- User profiles and saved career paths
+- 📄 Resume-based automatic skill extraction
+- 🤖 LLM-assisted career explanations
+- 🧭 Personalized learning roadmaps
+- 📚 Course recommendations
+- 🌎 Larger career knowledge graphs
+- 💼 Live job-market integration
+- 🔎 Semantic skill matching
+- 🧠 Graph embeddings
+- 👤 User profiles
+- 💾 Saved career plans
+- 📈 Career-progress tracking
+- 🔗 External learning-resource integration
 
 ---
 
@@ -571,10 +911,23 @@ Potential extensions include:
 
 **Govind Sannith Reddy**
 
-Software Engineering / AI-ML Candidate
+Computer Science / AI & Machine Learning
+
+GitHub: `sannith868`
 
 ---
 
-# 📄 License
+# 📄 Assessment Project
 
-This project was developed as part of a technical assessment.
+PathGraph AI was developed as a technical assessment project demonstrating practical use of:
+
+```text
+Python
+Streamlit
+CognoDB
+Cypher
+Graph Modeling
+Graph Traversal
+Interactive Visualization
+Software Engineering
+```
